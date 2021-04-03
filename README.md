@@ -1,5 +1,5 @@
 # MAL_deepsort
-This repo consists of the detector [Multiple Anchor Learning(MAL)](https://github.com/DeLightCMU/MAL-inference/) detector and tracker [deepsort](https://github.com/mikel-brostrom/Yolov5_DeepSort_Pytorch/tree/a60dcf9300ee7673b7d484e8ebb363b9a6408b81/deep_sort_pytorch) and tests on [VisDrone](https://github.com/VisDrone/VisDrone-Dataset).
+This repo consists of the detector [Multiple Anchor Learning(MAL)](https://github.com/DeLightCMU/MAL-inference/) and tracker [deepsort](https://github.com/mikel-brostrom/Yolov5_DeepSort_Pytorch/tree/a60dcf9300ee7673b7d484e8ebb363b9a6408b81/deep_sort_pytorch) and tests on [VisDrone](https://github.com/VisDrone/VisDrone-Dataset).
 
 ## 1. Installation
 
