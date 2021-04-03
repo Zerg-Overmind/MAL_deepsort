@@ -39,4 +39,4 @@ CUDA_VISIBLE_DEVICES=0 retinanet infer --images "path to your video data"  --bat
 python video.py
 
 ```
-The two output videos can be download [here](https://pan.baidu.com/s/1pq4HeTWB6R2b2Q46d2iVHw) with extracting code **vdvd**.
+The two output videos (20fps) can be download [here](https://pan.baidu.com/s/1pq4HeTWB6R2b2Q46d2iVHw) with extracting code **vdvd**.
