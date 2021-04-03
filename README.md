@@ -4,7 +4,7 @@ This repo consists of the detector [Multiple Anchor Learning(MAL)](https://githu
 ## 1. Installation
 
 ### Requirements:
-Please refer to [Multiple Anchor Learning(MAL)](https://github.com/DeLightCMU/MAL-inference/) and [deepsort](https://github.com/mikel-brostrom/Yolov5_DeepSort_Pytorch/tree/a60dcf9300ee7673b7d484e8ebb363b9a6408b81/deep_sort_pytorch)
+Please refer to [Multiple Anchor Learning(MAL)](https://github.com/DeLightCMU/MAL-inference/) and [deepsort](https://github.com/mikel-brostrom/Yolov5_DeepSort_Pytorch/tree/a60dcf9300ee7673b7d484e8ebb363b9a6408b81/deep_sort_pytorch).
 
 Download MAL parameters and deepsort parameters:
 ```bash
