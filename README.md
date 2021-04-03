@@ -8,7 +8,7 @@ Please refer to [Multiple Anchor Learning(MAL)](https://github.com/DeLightCMU/MA
 
 Download MAL parameters and deepsort parameters:
 ```bash
-#The path of the MAL parameters (backbone¡ª¡ªResNet-50-FPN) trained on COCO:
+#The path of the MAL parameters (backbone--ResNet-50-FPN) trained on COCO:
 ./models/resnet50/mal_r-50-fpn_cocomodel_0090000.pth
 #The path of the deepsort parameters:
 ./deep_sort/deep/checkpoint/ckpt.t7
