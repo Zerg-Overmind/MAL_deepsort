@@ -1,0 +1,55 @@
+Determining if the pthread_create exist failed with the following output:
+Change Dir: /workspace/extras/cppapi/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_3c904/fast 
+/usr/bin/make -f CMakeFiles/cmTC_3c904.dir/build.make CMakeFiles/cmTC_3c904.dir/build
+make[1]: Entering directory '/workspace/extras/cppapi/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_3c904.dir/CheckSymbolExists.cxx.o
+/usr/bin/c++    -std=gnu++14 -o CMakeFiles/cmTC_3c904.dir/CheckSymbolExists.cxx.o -c /workspace/extras/cppapi/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx
+Linking CXX executable cmTC_3c904
+/opt/conda/bin/cmake -E cmake_link_script CMakeFiles/cmTC_3c904.dir/link.txt --verbose=1
+/usr/bin/c++       CMakeFiles/cmTC_3c904.dir/CheckSymbolExists.cxx.o  -o cmTC_3c904 
+CMakeFiles/cmTC_3c904.dir/CheckSymbolExists.cxx.o: In function `main':
+CheckSymbolExists.cxx:(.text+0x1b): undefined reference to `pthread_create'
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_3c904.dir/build.make:86: recipe for target 'cmTC_3c904' failed
+make[1]: *** [cmTC_3c904] Error 1
+make[1]: Leaving directory '/workspace/extras/cppapi/build/CMakeFiles/CMakeTmp'
+Makefile:121: recipe for target 'cmTC_3c904/fast' failed
+make: *** [cmTC_3c904/fast] Error 2
+
+File /workspace/extras/cppapi/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx:
+/* */
+#include <pthread.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef pthread_create
+  return ((int*)(&pthread_create))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the function pthread_create exists in the pthreads failed with the following output:
+Change Dir: /workspace/extras/cppapi/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_0dd5d/fast 
+/usr/bin/make -f CMakeFiles/cmTC_0dd5d.dir/build.make CMakeFiles/cmTC_0dd5d.dir/build
+make[1]: Entering directory '/workspace/extras/cppapi/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_0dd5d.dir/CheckFunctionExists.cxx.o
+/usr/bin/c++    -DCHECK_FUNCTION_EXISTS=pthread_create   -std=gnu++14 -o CMakeFiles/cmTC_0dd5d.dir/CheckFunctionExists.cxx.o -c /workspace/extras/cppapi/build/CMakeFiles/CheckLibraryExists/CheckFunctionExists.cxx
+Linking CXX executable cmTC_0dd5d
+/opt/conda/bin/cmake -E cmake_link_script CMakeFiles/cmTC_0dd5d.dir/link.txt --verbose=1
+/usr/bin/c++   -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTC_0dd5d.dir/CheckFunctionExists.cxx.o  -o cmTC_0dd5d -lpthreads 
+/usr/bin/ld: cannot find -lpthreads
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_0dd5d.dir/build.make:86: recipe for target 'cmTC_0dd5d' failed
+make[1]: *** [cmTC_0dd5d] Error 1
+make[1]: Leaving directory '/workspace/extras/cppapi/build/CMakeFiles/CMakeTmp'
+Makefile:121: recipe for target 'cmTC_0dd5d/fast' failed
+make: *** [cmTC_0dd5d/fast] Error 2
+
+

@@ -1,0 +1,1 @@
+/usr/local/cuda/bin/nvcc  --expt-extended-lambda -std=c++11 -Xcompiler=-fPIC -Wno-deprecated-gpu-targets -shared -dlink CMakeFiles/retinanet.dir/workspace/csrc/cuda/decode.cu.o CMakeFiles/retinanet.dir/workspace/csrc/cuda/nms.cu.o -o CMakeFiles/retinanet.dir/cmake_device_link.o -lnvinfer -lnvonnxparser  

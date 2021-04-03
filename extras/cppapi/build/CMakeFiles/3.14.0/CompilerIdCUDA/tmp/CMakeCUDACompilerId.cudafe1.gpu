@@ -1,0 +1,37 @@
+typedef char __nv_bool;
+# 158 "/usr/include/c++/7/bits/basic_string.h" 3
+enum _ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEUt_E {
+# 158 "/usr/include/c++/7/bits/basic_string.h" 3
+_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE17_S_local_capacityE = 15};
+# 158 "/usr/include/c++/7/bits/basic_string.h" 3
+enum _ZNSt7__cxx1112basic_stringIwSt11char_traitsIwESaIwEEUt_E {
+# 158 "/usr/include/c++/7/bits/basic_string.h" 3
+_ZNSt7__cxx1112basic_stringIwSt11char_traitsIwESaIwEE17_S_local_capacityE = 3};
+# 158 "/usr/include/c++/7/bits/basic_string.h" 3
+enum _ZNSt7__cxx1112basic_stringIDsSt11char_traitsIDsESaIDsEEUt_E {
+# 158 "/usr/include/c++/7/bits/basic_string.h" 3
+_ZNSt7__cxx1112basic_stringIDsSt11char_traitsIDsESaIDsEE17_S_local_capacityE = 7};
+# 158 "/usr/include/c++/7/bits/basic_string.h" 3
+enum _ZNSt7__cxx1112basic_stringIDiSt11char_traitsIDiESaIDiEEUt_E {
+# 158 "/usr/include/c++/7/bits/basic_string.h" 3
+_ZNSt7__cxx1112basic_stringIDiSt11char_traitsIDiESaIDiEE17_S_local_capacityE = 3};
+# 46 "/usr/include/c++/7/bits/uses_allocator.h" 3
+struct _ZSt15allocator_arg_t;
+# 123 "/usr/include/c++/7/bits/std_function.h" 3
+enum _ZSt18_Manager_operation {
+# 125 "/usr/include/c++/7/bits/std_function.h" 3
+_ZSt15__get_type_info,
+# 126 "/usr/include/c++/7/bits/std_function.h" 3
+_ZSt17__get_functor_ptr,
+# 127 "/usr/include/c++/7/bits/std_function.h" 3
+_ZSt15__clone_functor,
+# 128 "/usr/include/c++/7/bits/std_function.h" 3
+_ZSt17__destroy_functor};
+# 216 "/usr/lib/gcc/x86_64-linux-gnu/7/include/stddef.h" 3
+typedef unsigned long size_t;
+#include "crt/device_runtime.h"
+# 231 "/usr/include/x86_64-linux-gnu/c++/7/bits/c++config.h" 3
+typedef unsigned long _ZSt6size_t;
+# 46 "/usr/include/c++/7/bits/uses_allocator.h" 3
+struct _ZSt15allocator_arg_t {};
+#include "common_functions.h"

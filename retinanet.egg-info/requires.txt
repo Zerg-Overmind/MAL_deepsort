@@ -1,0 +1,5 @@
+torch>=1.0.0a0
+apex@ git+https://github.com/NVIDIA/apex
+pycocotools@ git+https://github.com/nvidia/cocoapi.git#subdirectory=PythonAPI
+pillow==6.2.2
+requests
