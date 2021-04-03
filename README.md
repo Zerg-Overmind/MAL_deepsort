@@ -25,7 +25,7 @@ We test on valset([BaiduYun](https://pan.baidu.com/s/1_gLvMxkMKb3RZjGyZv7btQ)|[G
 #The annotation of the first video:
 ./VisDrone2019-MOT-val/annotations/uav0000305_00000_v.txt
 ```
-If you want to try other videos, please replace the annotation path in L152 of ./retinanet/infer.py to your own ones. You can also change the output path by replacing L238 of  ./retinanet/infer.py to your own one.
+If you want to try other videos, please replace the annotation path in L152 of ``./retinanet/infer.py`` to your own ones. You can also change the output path by replacing L238 of  ``./retinanet/infer.py`` to your own one.
 
 
 ## 3. Running (Pytorch)
@@ -39,3 +39,4 @@ CUDA_VISIBLE_DEVICES=0 retinanet infer --images "path to your video data"  --bat
 python video.py
 
 ```
+The two output videos can be download [here](https://pan.baidu.com/s/1pq4HeTWB6R2b2Q46d2iVHw) with extracting code **vdvd**.
