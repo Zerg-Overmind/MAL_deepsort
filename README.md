@@ -14,7 +14,7 @@ Download MAL parameters and deepsort parameters:
 ./deep_sort/deep/checkpoint/ckpt.t7
 ```
 ## 2. Any two videos from VisDrone (Task 4: Multi-Object Tracking) 
-We test on valset([BaiduYun](https://pan.baidu.com/s/1_gLvMxkMKb3RZjGyZv7btQ)|[GoogleDrive](https://drive.google.com/file/d/1rqnKe9IgU_crMaxRoel9_nuUsMEBBVQu/view?usp=sharing)) of VisDrone2019-MOT dataset. Two videos we track are:
+* We test on valset([BaiduYun](https://pan.baidu.com/s/1_gLvMxkMKb3RZjGyZv7btQ)|[GoogleDrive](https://drive.google.com/file/d/1rqnKe9IgU_crMaxRoel9_nuUsMEBBVQu/view?usp=sharing)) of VisDrone2019-MOT dataset. Two videos we track are:
 ```bash
 #The path of the first video:
 ./VisDrone2019-MOT-val/sequences/uav0000137_00458_v
@@ -26,8 +26,21 @@ We test on valset([BaiduYun](https://pan.baidu.com/s/1_gLvMxkMKb3RZjGyZv7btQ)|[G
 ./VisDrone2019-MOT-val/annotations/uav0000305_00000_v.txt
 ```
 If you want to try other videos, please replace the annotation path in L152 of ``./retinanet/infer.py`` to your own ones. You can also change the output path by replacing L238 of  ``./retinanet/infer.py`` to your own one.
-
-
+* The output path of tracking result is :
+```bash
+/home/gqk/MAL-inference/inference/output/
+```
+* About class labels in our output videos:
+```bash
+# classes transformation on COCO (detection and tracking are trained on COCO)
+0-others: the rest 74 classes(except person and vehicle)
+1-person: '0-person'
+2-vehicle: '1-bike', '2-car', '3-motor', '5-bus', '7-trunk'
+# classes transformation on VisDrone (annotation transformation to our desired)
+0-others: '0-ignored regions', '11-others'
+1-person:  '1-pedestrian', '2-people'
+2-vehicle: '3-bike', '4-car', '5-van', '6-trunk', '7-tricycle', '8-awning-tricycle', '9-bus', '10-motor'
+```
 ## 3. Running (Pytorch)
 ```bash
 CUDA_VISIBLE_DEVICES=0 retinanet infer --images "path to your video data"  --batch=1
@@ -40,3 +53,4 @@ python video.py
 
 ```
 The two output videos (20fps) can be download [here](https://pan.baidu.com/s/1pq4HeTWB6R2b2Q46d2iVHw) with extracting code **vdvd**.
+
