@@ -20,7 +20,7 @@ from deep_sort_pytorch.deep_sort import DeepSort
 import argparse
 from pathlib import Path
 import shutil
-
+from time import* 
 palette = (2 ** 11 - 1, 2 ** 15 - 1, 2 ** 20 - 1)
 
 def bbox_rel(xyxy):
@@ -148,8 +148,8 @@ def infer(model, path, detections_file, resize, max_size, batch_size, mixed_prec
 
     results = []
     profiler = Profiler(['infer', 'fw'])
-
-    ## annotation
+    
+    ## load annotation file XXXX.txt
     anno_file = open('VisDrone2019-MOT-val/annotations/uav0000305_00000_v.txt')
     anno = anno_file.readlines()
     anno_id = []
@@ -166,21 +166,19 @@ def infer(model, path, detections_file, resize, max_size, batch_size, mixed_prec
         obj_anno[idd-1].append(float(anno_it.split(',')[1]))
   #  anno_id = np.array(anno_id)
   #  bbox_anno = np.array(bbox_anno)
-    
+    prop_num = np.array([0])
     with torch.no_grad():
         for i, (data, ids, ratios) in enumerate(data_iterator):
             # Forward pass
-            #print('start  profiler')
-            profiler.start('fw')
-            
+            profiler.start('fw')        
             scores, boxes, classes = model(data)
             profiler.stop('fw')
             img = np.array(data[0].permute([1, 2, 0]).cpu())
-        #    img_demo = cv2.rectangle(img, (int(boxes[0, 1, 0].cpu()), int(boxes[0, 1, 1].cpu())), (int(boxes[0, 1, 2].cpu()),int(boxes[0, 1, 3].cpu())), (0, 0, 255), 2)
-        #    cv2.imwrite('img.jpg', img)
+           
             results.append([scores, boxes, classes, ids, ratios])
             cls_pt = np.array(classes[0].cpu())
-
+            prop_num += boxes.shape[1]
+    
             # person in coco: 0-person
             cls_pt[np.where(cls_pt==0)]=1
             # vehicle in coco: 1-bike; 2-car; 3-motor; 5-bus; 7-trunk
@@ -190,7 +188,7 @@ def infer(model, path, detections_file, resize, max_size, batch_size, mixed_prec
             anno_iid = np.array(anno_id[i])
             # person in VisDrone: 1-pedestrian; 2-people
             anno_iid[np.where((anno_iid==1)|(anno_iid==2))]=1
-            # vehicle in VisDrone: 3-bike; 4-car; 5-van; 6-trunk; 7-tricycle; 8-awning-tricycle; 9-bus; 10-botor
+            # vehicle in VisDrone: 3-bike; 4-car; 5-van; 6-trunk; 7-tricycle; 8-awning-tricycle; 9-bus; 10-motor
             anno_iid[np.where((anno_iid==3)|(anno_iid==4)|(anno_iid==5)|(anno_iid==6)|(anno_iid==7)|(anno_iid==8)|(anno_iid==9)|(anno_iid==10))]=2
             anno_iid[np.where((anno_iid!=1)&(anno_iid!=2))]=0
   
@@ -201,12 +199,9 @@ def infer(model, path, detections_file, resize, max_size, batch_size, mixed_prec
             bbox_xy[:, 2] = bbox_id[:, 0] + bbox_id[:, 2] 
             bbox_xy[:, 3] = bbox_id[:, 1] + bbox_id[:, 3]
             bbox_xy *= np.array(ratios.cpu()).item()
-          #  bbox_xy[[0, 3]] /= np.array(ratios.cpu()) # (1940/1344)
-          #  bbox_xy[[1, 2]] /= np.array(ratios.cpu())#(1071/768)
+
             obj_id = np.array(obj_anno[i]) + 1
-          #  import pdb;pdb.set_trace()
-          #  imag = mmcv.imshow_det_bboxes(img, np.array(boxes[0].cpu()), cls_pt)
-          #  cv2.imwrite('VisDrone_det_6/img{:0>7d}.jpg'.format(i+1), img)
+
             
             bbox_xywh = []     
             cbox = boxes[0].cpu()
@@ -216,13 +211,16 @@ def infer(model, path, detections_file, resize, max_size, batch_size, mixed_prec
                 bbox_xywh.append(obj)
 
             xywhs = torch.Tensor(bbox_xywh)
-        
+           
+            track_begin = time()
             outputs = deepsort.update(xywhs, scores[0].cpu(), img)
-        
-            # brighter the image
+            track_end = time()
+
+            # change the image brightness
             row, col, cha = img.shape
             blank = np.zeros([row, col, cha], img.dtype)
             imgb = cv2.addWeighted(img, 2, blank, 1, 50)
+
             if len(outputs) > 0:
                  bbox_xyxy = outputs[:, :4]
                  identities = outputs[:, -1]
@@ -240,17 +238,21 @@ def infer(model, path, detections_file, resize, max_size, batch_size, mixed_prec
                             f.write(('%g ' * 10 + '\n') % (i, identity, bbox_left,
                                                            bbox_top, bbox_w, bbox_h, scores[0][j].cpu().item(), -1, -1, -1))
             
-            cv2.imwrite('VisDrone_det_6/img{:0>7d}.jpg'.format(i+1), imgb)
-           
-                
+          #  cv2.imwrite('VisDrone_det_6/img{:0>7d}.jpg'.format(i+1), imgb)
+            
             profiler.bump('infer')
             if verbose and (profiler.totals['infer'] > 60 or i == len(data_iterator) - 1):
                 size = len(data_iterator.ids)
                 msg  = '[{:{len}}/{}]'.format(min((i + 1) * batch_size,
                     size), size, len=len(str(size)))
                 msg += ' {:.3f}s/{}-batch'.format(profiler.means['infer'], batch_size)
-                msg += ' (fw: {:.3f}s)'.format(profiler.means['fw'])
+                msg += ' (dt: {:.3f}s)'.format(profiler.means['fw'])
+                msg += ' (tk: {:.3f}s)'.format(track_end - track_begin)
+                msg += ' (prop_num: {:.0f}/im)'.format(int(prop_num.item()/i))
+                msg += ' (input_rsl: {:.0f}*{:.0f})'.format(img.shape[0], img.shape[1])
+                msg += ' (threshold: {:.3f})'.format(0.05)
                 msg += ', {:.1f} im/s'.format(batch_size / profiler.means['infer'])
+
                 print(msg, flush=True)
 
                 profiler.reset()
@@ -272,15 +274,7 @@ def infer(model, path, detections_file, resize, max_size, batch_size, mixed_prec
         # Collect detections
         detections = []
         processed_ids = set()
-
-###########################################################
-    #    image_id = []
-    #    with open(os.path.expanduse(path), "r") as f:
-    #        full_anno = f.readlines()
-    #        for n, line in enumerate(full_anno):
-    #            image_id.append(line.split(',')[0])
-         
-###########################################################                
+             
              
         for scores, boxes, classes, image_id, ratios in zip(*results):
             image_id = image_id.item()
