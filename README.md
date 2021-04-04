@@ -28,7 +28,7 @@ Download MAL parameters and deepsort parameters:
 If you want to try other videos, please replace the annotation path in L152 of ``./retinanet/infer.py`` to your own ones. You can also change the output path by replacing L238 of  ``./retinanet/infer.py`` to your own one.
 * The output path of tracking result(the output format has been aligned to annotation file of VisDrone) is:
 ```bash
-/home/gqk/MAL-inference/inference/output/
+./inference/output/
 ```
 which can be used to evaluate the model with official metrices.
 * About class labels in our output videos:
