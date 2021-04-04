@@ -22,7 +22,7 @@ Download MAL parameters and deepsort parameters:
 ./VisDrone2019-MOT-val/annotations/uav0000137_00458_v.txt
 #The path of the second video:
 ./VisDrone2019-MOT-val/sequences/uav0000305_00000_v
-#The annotation of the first video:
+#The annotation of the second video:
 ./VisDrone2019-MOT-val/annotations/uav0000305_00000_v.txt
 ```
 If you want to try other videos, please replace the annotation path in L152 of ``./retinanet/infer.py`` to your own ones. You can also change the output path by replacing L238 of  ``./retinanet/infer.py`` to your own one.
